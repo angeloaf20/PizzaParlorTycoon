@@ -29,7 +29,7 @@ function OrderController:Init()
     proxPrompt.Enabled = false
 end
 
-function OrderController.GenerateOrder()
+function OrderController:GenerateOrder()
     local dough = Ingredient.new(Ingredients:FindFirstChild("Dough"))
     local sauce = Ingredient.new(Ingredients:FindFirstChild("Sauce"))
     local cheese = Ingredient.new(Ingredients:FindFirstChild("Cheese"))

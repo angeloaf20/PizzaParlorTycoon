@@ -39,7 +39,7 @@ function CustomerManager:GenerateCustomer()
     local customerModel = Customers:FindFirstChild("Customer"):Clone()
     local name = "Bob"
     local orderController = ManagerRegister:GetManager("OrderController")
-    local order = orderController.GenerateOrder()
+    local order = orderController:GenerateOrder()
     local customer = Customer.new(customerModel, 1, name, order)
     self.CustomerList:Enqueue(customer)
     print("New customer: ", customer)
