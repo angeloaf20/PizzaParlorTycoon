@@ -55,8 +55,7 @@ function OrderController:SendToScreen(order)
     end)
 end
 
-function OrderController:OrderProcedure(order)
-    print(order)
+function OrderController:OrderProcedure(_order)
     local function waitForStep(parent: Instance, actionText: string)
         local proximityPrompt
 

@@ -72,6 +72,7 @@ end
 function CustomerManager:FirstInLine(customer)
     --#region Checking for employees and allowing the player 5 seconds to take the order before defaulting to the cashier
     if self:CheckForCashier() then
+        print("Has cashier")
         local orderTaken = false
 
         local proxPrompt = Instance.new("ProximityPrompt")
@@ -133,12 +134,8 @@ function CustomerManager:TalkToCashier(order)
 end
 
 function CustomerManager:CheckForCashier()
-    print("Good for now")
-
     local employeeManager = ManagerRegister:GetManager("EmployeeManager")
-    if employeeManager:FindEmployee("Cashier") then
-        return true
-    end
+    return employeeManager:FindEmployee("Cashier")
 end
 
 function CustomerManager:LeaveParlor(customer)
