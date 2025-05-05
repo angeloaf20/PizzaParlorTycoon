@@ -31,8 +31,8 @@ function EmployeeManager:Init()
         employeeGuiEvent:FireClient(playerWhoTriggered, self.ComponentManager.Parlor.Model)
     end)
 
-    employeeGuiEvent.OnServerEvent:Connect(function(_player, role: string)
-        --if player:FindFirstChild("leaderstats"):FindFirstChild("Money").Value == 10 then
+    employeeGuiEvent.OnServerEvent:Connect(function(player, role: string)
+        --if player:FindFirstChild("leaderstats"):FindFirstChild("Money").Value >= 10 then
             print("Hiring employee...", role)
             self:HireEmployee(role)
         --end
@@ -44,6 +44,7 @@ function EmployeeManager:OnScreenPressed(employeeName)
 end
 
 function EmployeeManager:HireEmployee(role: string)
+    print("Employee?", self.EmployeeList[role])
     local employeeModelFolder = ServerStorage:FindFirstChild("Employees")
     local employeeSpawnFolder = self.ComponentManager.Parlor.Building:FindFirstChild("EmployeeSpawns")--:GetChildren()
     local employee = require(ReplicatedStorage.Shared.Employees[role])
@@ -54,10 +55,11 @@ function EmployeeManager:HireEmployee(role: string)
         employeeModel.Parent = employeeSpawnFolder:FindFirstChild(spawnPoint)
         employeeModel.PrimaryPart:PivotTo(employeeModel.Parent.CFrame)
     end
+    print("Employee now?", self.EmployeeList[role])
 end
 
 function EmployeeManager:FindEmployee(role)
-    return self.EmployeeList[role] ~= false
+    return self.EmployeeList[role]
 end
 
 return EmployeeManager

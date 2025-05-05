@@ -5,7 +5,7 @@ local Ingredients = PizzaStuff:FindFirstChild("Ingredients")
 local Order = require(ReplicatedStorage.Shared.PizzaProcess.Order)
 local Ingredient = require(ReplicatedStorage.Shared.PizzaProcess.Ingredient)
 local TweenService = game:GetService("TweenService")
---local EventManager = require(ReplicatedStorage.Shared.EventManager)
+local EventManager = require(ReplicatedStorage.Shared.EventManager)
 local ManagerRegister = require(game.ReplicatedStorage.Shared.ManagerRegister)
 
 --local CustomerManager = ManagerRegister:GetManager("CustomerManager")
@@ -51,6 +51,7 @@ function OrderController:SendToScreen(order)
     local acceptButton: TextButton = orderFrame:FindFirstChild("AcceptOrderButton")
     acceptButton.MouseButton1Click:Connect(function()
         print("accept button clicked")
+        orderFrame:Destroy()
         self:OrderProcedure(order)
     end)
 end
@@ -191,9 +192,12 @@ function OrderController:OrderProcedure(_order)
 
     plateTool:Destroy();
     controlTray(tray, 4.5);
-    cheese:Destroy();
-    sauce:Destroy();
-    dough:Destroy();
+
+    local customerManager = ManagerRegister:GetManager("CustomerManager")
+    customerManager:GiveCustomerPizza(customerManager.CustomerList:Peek())
+end
+
+function OrderController:DestroyPlate(plate: Tool)
     plate:Destroy()
 end
 

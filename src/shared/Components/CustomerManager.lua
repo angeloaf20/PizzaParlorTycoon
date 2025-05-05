@@ -86,7 +86,7 @@ function CustomerManager:FirstInLine(customer)
             proxPrompt.Enabled = false
             proxPrompt:Destroy()
             OrderController:OrderProcedure(customer.Order)
-            self:GiveCustomerPizza(customer)
+            -- self:GiveCustomerPizza(customer)
         end)
 
         task.delay(5, function()
@@ -96,6 +96,7 @@ function CustomerManager:FirstInLine(customer)
             end
             print("Talking to the cashier, ", customer)
             self:TalkToCashier(customer.Order)
+            -- self:GiveCustomerPizza(customer)
         end)
         return
     end
@@ -111,7 +112,7 @@ function CustomerManager:FirstInLine(customer)
         proxPrompt.Enabled = false
         proxPrompt:Destroy()
         OrderController:OrderProcedure(customer.Order)
-        self:GiveCustomerPizza(customer)
+        -- self:GiveCustomerPizza(customer)
     end)
 end
 
@@ -124,6 +125,7 @@ function CustomerManager:GiveCustomerPizza(customer)
     proxPrompt:Destroy()
     local price = customer.Multiplier * customer.Order.Price
     EventManager.PublishEvent(self.ComponentManager.Parlor.Owner.UserId, "UpdateCash", price)
+    EventManager.PublishEvent(self.ComponentManager.Parlor.Owner.UserId, "DestroyPizza")
     self:LeaveParlor(customer)
 end
 
